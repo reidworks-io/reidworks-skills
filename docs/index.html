@@ -51,8 +51,17 @@
   .card p{margin:0 0 14px; color:var(--muted); font-size:14.5px}
   .when{font-size:13px; color:#b9c2d0; background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:14px}
   .when b{color:var(--text); font-weight:600}
-  .meta{display:flex; gap:8px; flex-wrap:wrap}
+  .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
   .chip{font-size:12px; color:#c8d0dd; background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:4px 10px}
+  .dl{
+    margin-left:auto; display:inline-flex; align-items:center; gap:6px;
+    font-size:12.5px; font-weight:600; color:#0f1115;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    border:none; border-radius:999px; padding:6px 12px;
+    text-decoration:none; transition:transform .12s, filter .12s;
+  }
+  .dl:hover{transform:translateY(-1px); filter:brightness(1.06); text-decoration:none}
+  .dl svg{width:13px; height:13px}
   .soon{opacity:.72; border-style:dashed}
   footer{padding:40px 0 60px; color:var(--muted); text-align:center; font-size:14px; border-top:1px solid var(--line); margin-top:50px}
   a{color:var(--accent); text-decoration:none}
@@ -120,6 +129,9 @@
     }
   ];
 
+  const ZIP_BASE = "https://github.com/reidworks-io/reidworks-skills/releases/download/latest";
+  const DL_ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9m0 0l-3.5-3.5M8 11l3.5-3.5M2.5 13h11"/></svg>';
+
   const grid = document.getElementById('grid');
   document.getElementById('count').textContent = skills.length + " skill" + (skills.length===1?"":"s");
   grid.innerHTML = skills.map(s => `
@@ -130,6 +142,9 @@
       <div class="meta">
         <span class="chip">${s.category}</span>
         <span class="chip">@${s.owner}</span>
+        <a class="dl" href="${ZIP_BASE}/${s.name}.zip" title="Download ${s.name}.zip for Cowork upload">
+          ${DL_ICON} Download ZIP
+        </a>
       </div>
     </div>
   `).join('');
