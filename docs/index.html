@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reidworks Skills</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1d2129; --line:#2a2f3a;
+    --text:#e8eaed; --muted:#9aa3b2; --accent:#6ea8fe; --accent-2:#8b7cff;
+    --chip:#222732; --code:#10131a;
+    --radius:14px; --max:980px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:radial-gradient(1200px 600px at 50% -10%, #1a1f2b 0%, var(--bg) 60%);
+    color:var(--text); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+  header{padding:72px 0 36px; text-align:center}
+  .logo{
+    display:inline-flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-size:14px; text-transform:uppercase;
+  }
+  .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  h1{font-size:clamp(34px,6vw,52px); margin:14px 0 8px; letter-spacing:-1px}
+  .tag{color:var(--muted); font-size:18px; max-width:620px; margin:0 auto}
+  .install{
+    margin:34px auto 0; max-width:680px; background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); padding:18px 20px; text-align:left;
+  }
+  .install h3{margin:0 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted)}
+  pre{
+    margin:8px 0 0; background:var(--code); border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px; overflow:auto; font:13px/1.7 "SF Mono",ui-monospace,Menlo,Consolas,monospace; color:#cdd6e4;
+  }
+  .pre-comment{color:#6b7384}
+  section{margin:46px 0}
+  .section-h{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px}
+  .section-h h2{font-size:22px; margin:0; letter-spacing:-.3px}
+  .count{color:var(--muted); font-size:14px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px}
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; transition:border-color .15s, transform .15s;
+  }
+  .card:hover{border-color:var(--accent); transform:translateY(-2px)}
+  .card h3{margin:0 0 6px; font-size:18px; display:flex; align-items:center; gap:8px}
+  .card p{margin:0 0 14px; color:var(--muted); font-size:14.5px}
+  .when{font-size:13px; color:#b9c2d0; background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:14px}
+  .when b{color:var(--text); font-weight:600}
+  .meta{display:flex; gap:8px; flex-wrap:wrap}
+  .chip{font-size:12px; color:#c8d0dd; background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:4px 10px}
+  .soon{opacity:.72; border-style:dashed}
+  footer{padding:40px 0 60px; color:var(--muted); text-align:center; font-size:14px; border-top:1px solid var(--line); margin-top:50px}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo"><span class="dot"></span> Reidworks Internal</div>
+    <h1>Skills Library</h1>
+    <p class="tag">Shared, reusable skills for the whole team. Install once — they load automatically in Cowork and Claude Code.</p>
+
+    <div class="install">
+      <h3>Install in Claude Code</h3>
+      <pre><span class="pre-comment"># replace with the real org/repo once pushed</span>
+/plugin marketplace add reidworks-io/reidworks-skills
+/plugin install reidworks-core@reidworks-skills</pre>
+      <h3 style="margin-top:16px">Install in Cowork</h3>
+      <pre>Plugin marketplace → Add by URL → install "reidworks-core"</pre>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-h">
+      <h2>Skill catalog</h2>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    Add your own → see <a href="https://github.com/reidworks-io/reidworks-skills/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+    One plugin, <code>reidworks-core</code>, bundles every shared skill.
+  </footer>
+
+</div>
+
+<script>
+  // Edit this list when you add a skill — it's the only thing that changes.
+  const skills = [
+    {
+      name: "human-voice",
+      desc: "Edits and writes external-facing prose so it doesn't read as AI-generated.",
+      when: "Writing or reviewing docs, blog posts, tutorials, public READMEs, customer-facing decks, marketing copy.",
+      category: "company-wide",
+      owner: "mscwilson"
+    },
+    {
+      name: "long-run",
+      desc: "Scaffolds a /loop-driven multi-agent orchestrator that builds a project end-to-end across many cycles. Requires a detailed roadmap; uses Git as source of truth.",
+      when: "\"Kick off an overnight build\", \"weekend run\", \"orchestrator harness\", \"long autonomous build\", \"let Claude build this while I sleep\".",
+      category: "eng",
+      owner: "johnmicahreid"
+    }
+  ];
+
+  const grid = document.getElementById('grid');
+  document.getElementById('count').textContent = skills.length + " skill" + (skills.length===1?"":"s");
+  grid.innerHTML = skills.map(s => `
+    <div class="card${s.soon ? ' soon' : ''}">
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <div class="when"><b>Triggers:</b> ${s.when}</div>
+      <div class="meta">
+        <span class="chip">${s.category}</span>
+        <span class="chip">@${s.owner}</span>
+      </div>
+    </div>
+  `).join('');
+</script>
+</body>
+</html>

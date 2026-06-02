@@ -1,0 +1,10 @@
+{
+  "name": "reidworks-core",
+  "version": "0.1.0",
+  "description": "Shared Reidworks skills for everyone. Install once to get the whole team's reusable skills.",
+  "author": {
+    "name": "Reidworks",
+    "email": "john@reidworks.io"
+  },
+  "keywords": ["reidworks", "internal", "skills"]
+}

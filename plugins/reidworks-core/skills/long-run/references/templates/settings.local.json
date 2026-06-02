@@ -1,0 +1,10 @@
+{
+  "deny": [
+    "Bash(vercel deploy*)",
+    "Bash(fly deploy*)",
+    "Bash(netlify deploy*)",
+    "Bash(git push --force*)",
+    "Bash(git push origin main*)",
+    "Bash(git push origin master*)"
+  ]
+}
