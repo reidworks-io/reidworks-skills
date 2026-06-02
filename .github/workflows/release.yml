@@ -1,0 +1,61 @@
+name: Build skill ZIPs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/reidworks-core/skills/**'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build per-skill ZIPs
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for d in plugins/reidworks-core/skills/*/; do
+            name=$(basename "$d")
+            (cd "$d" && zip -r "${GITHUB_WORKSPACE}/dist/${name}.zip" .)
+            echo "✓ dist/${name}.zip"
+          done
+          ls -la dist/
+
+      - name: Publish or update 'latest' release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          NOTES=$(cat <<'EOF'
+          Per-skill ZIPs for **Cowork (personal account)** install.
+
+          ### How to install in Cowork
+          1. Download the ZIP for the skill you want (below).
+          2. In Cowork: open **Customize → Skills**.
+          3. Click the **+** at the top of the Skills sidebar → **+ Create skill**.
+          4. Choose **Upload a skill** and upload the ZIP.
+
+          For Claude Code, prefer the marketplace install — see the README.
+
+          _This release is auto-rebuilt on every push to `main`. The commit it was built from is in the workflow run logs._
+          EOF
+          )
+
+          if gh release view latest --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Updating existing 'latest' release"
+            gh release edit latest --repo "$GITHUB_REPOSITORY" --notes "$NOTES" --title "Latest skills"
+            gh release upload latest --repo "$GITHUB_REPOSITORY" dist/*.zip --clobber
+          else
+            echo "Creating 'latest' release"
+            gh release create latest --repo "$GITHUB_REPOSITORY" dist/*.zip \
+              --title "Latest skills" \
+              --notes "$NOTES" \
+              --latest
+          fi

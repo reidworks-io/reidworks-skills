@@ -68,17 +68,20 @@
     <p class="tag">Shared, reusable skills for the whole team. Install once — they load automatically in Cowork and Claude Code.</p>
 
     <div class="install">
-      <h3>Install in Claude Code</h3>
+      <h3>Install in Claude Code <span style="color:var(--muted);text-transform:none;font-weight:400">(recommended — one command)</span></h3>
       <pre>/plugin marketplace add reidworks-io/reidworks-skills
 /plugin install reidworks-core@reidworks-skills</pre>
-      <h3 style="margin-top:16px">Install in Cowork</h3>
-      <pre>1. Customize menu → Plugins tab
-2. Personal plugins → + → Add marketplace
-3. Add from a repository → paste:
-   reidworks-io/reidworks-skills
-4. Install "reidworks-core" → Authorise</pre>
+
+      <h3 style="margin-top:16px">Install in Cowork (personal account)</h3>
+      <pre>1. Open <a href="https://github.com/reidworks-io/reidworks-skills/releases/tag/latest" style="color:#cdd6e4;text-decoration:underline">the latest release</a>
+2. Download the ZIP for the skill you want
+3. Cowork → Customize → Skills
+4. + → + Create skill → Upload a skill
+5. Upload the ZIP</pre>
       <p style="margin:10px 0 0; font-size:13px; color:var(--muted)">
-        Full walkthrough: <a href="https://support.claude.com/en/articles/13837440-use-plugins-in-claude">Anthropic — Use plugins in Claude</a>.
+        Cowork's "Add marketplace" is org/team-only. ZIPs are auto-rebuilt on every push to <code>main</code>. Refs:
+        <a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">Use skills</a> ·
+        <a href="https://support.claude.com/en/articles/13837440-use-plugins-in-claude">Use plugins</a>.
       </p>
     </div>
   </header>

@@ -4,29 +4,32 @@ Shared, reusable skills for the whole team. One Git repo, structured as a Claude
 
 ## Install (everyone does this once)
 
-In **Claude Code**:
+### Claude Code (recommended)
 
 ```
 /plugin marketplace add reidworks-io/reidworks-skills
 /plugin install reidworks-core@reidworks-skills
 ```
 
-In **Cowork**:
+One command syncs every skill in this repo. Updates land on the next `/plugin marketplace update`. Works on personal accounts.
 
-1. Open the **Customize** menu (gear/avatar area) and click the **Plugins** tab.
-2. Under **Personal plugins**, click the **+** button and choose **Add marketplace**.
-3. Pick **Add from a repository**.
-4. Paste the repo path:
-   ```
-   reidworks-io/reidworks-skills
-   ```
-   (or the full URL `https://github.com/reidworks-io/reidworks-skills` — both work).
-5. Cowork syncs the marketplace. You'll see **reidworks-core** listed; click **Install**, then **Authorise** when it asks about permissions.
-6. The skills below now load automatically — trigger them by typing `/` in any conversation, or just describe a matching task and Claude will pick them up on its own.
+### Cowork (personal account)
 
-> Anthropic's docs for this flow: [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). Plugins you add yourself are saved to your machine, not to the org — every teammate runs these steps once.
+Cowork's "Add marketplace" flow is org/team-only. On a personal account you install each skill individually as a ZIP:
 
-After installing, the skills below load automatically — Claude triggers them on its own when a task matches their description. You don't need to remember command names.
+1. Open the latest release: **[Latest skills](https://github.com/reidworks-io/reidworks-skills/releases/tag/latest)**.
+2. Download the ZIP for the skill you want (e.g. `long-run.zip`).
+3. In Cowork open **Customize → Skills**.
+4. Click the **+** at the top of the Skills sidebar → **+ Create skill** → **Upload a skill**.
+5. Upload the ZIP. The skill appears under **Personal skills** and triggers automatically when its description matches a task.
+
+Repeat per skill. ZIPs are auto-rebuilt on every push to `main`, so re-downloading picks up new versions.
+
+> Refs: [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) · [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). Skills you upload are saved locally to your machine — every teammate runs these steps once per device.
+
+### Cowork (Team or Enterprise plan)
+
+If we ever upgrade to a Team or Enterprise workspace, the full marketplace install also works inside Cowork: **Customize → Plugins → Personal plugins → + → Add marketplace → Add from a repository →** paste `reidworks-io/reidworks-skills`. Until then, use the ZIP path above.
 
 ## Skill catalog
 
