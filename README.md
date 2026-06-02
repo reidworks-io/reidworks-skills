@@ -13,8 +13,6 @@ In **Claude Code**:
 
 In **Cowork**: open the plugin marketplace, add this repo by URL, and install **reidworks-core**.
 
-> Replace `reidworks-io/reidworks-skills` with the actual GitHub `org/repo` once you push it.
-
 After installing, the skills below load automatically — Claude triggers them on its own when a task matches their description. You don't need to remember command names.
 
 ## Skill catalog
