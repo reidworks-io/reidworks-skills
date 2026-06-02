@@ -176,7 +176,9 @@ Walk through each. Confirm before kickoff.
 2. **Pre-push hook** at `.git/hooks/pre-push` running the full gate command. Optional but
    recommended — catches regressions before they hit the remote.
 3. **Mac wake-lock.** In a separate terminal: `caffeinate -dimsu &`. If the machine sleeps,
-   `/loop` dies silently and hours of cycles are lost.
+   `/loop` dies silently and hours of cycles are lost. **Do not swap `/loop` for `launchd`,
+   `cron`, or a remote routine "for resilience"** — you lose live visibility and headless
+   `claude -p` has known toolchain traps (see Known traps #1, #4).
 4. **Kill switch test.**
    ```bash
    touch .agents/STOP && ls .agents/STOP && rm .agents/STOP
@@ -208,6 +210,89 @@ Final words to the user:
 - **Never commit without showing the user the harness files first.** They are about to delegate
   authority to an orchestrator — they need to see what it will do.
 - **Never push to main from this skill.** All commits are local; the user pushes manually.
+
+## Known traps (from real runs)
+
+Each of these cost time on a real autonomous build. The templates this skill
+ships now encode the fix; the explanations live here so future maintainers know
+why the templates look the way they do.
+
+### Trap 1 — Headless orchestrator hides its work
+
+**What goes wrong:** Setting up the orchestrator via `launchd`, `cron`, or a
+remote routine "for resilience" sounds smart, but `claude -p` running
+non-interactively writes nothing useful to stdout / stderr. The only live view
+is the JSONL session log under `~/.claude/projects/<repo>/`, which is awkward
+to follow with `jq` and easy to miss when a worker turn goes sideways. You can't
+catch a bad turn until after it lands on `main`.
+
+**The fix:** Run the orchestrator in an *attended* `/loop` in your interactive
+terminal. Use `caffeinate` for the wake-lock. Accept that if the session dies
+(laptop sleeps without caffeinate, terminal closes), the cycle dies — that's the
+trade. The visibility is worth it.
+
+**If you genuinely need unattended overnight:** wrap `claude -p` in `launchd`,
+but verify the MCP toolchain works headless first (Trap 4) and accept that
+you'll be reading `DIGEST.md` + JSONL after the fact rather than watching live.
+
+### Trap 2 — Bookkeeping carried across cycles
+
+**What goes wrong:** Cycle N updates `STATE.md` or `DIGEST.md` but doesn't commit
+before spawning the worker. Cycle N+1 inherits the dirty working tree. A
+`git stash` somewhere — to give the worker a clean checkout — drops uncommitted
+bookkeeping into a dangling stash. Hours later, "where did cycle 19's `DIGEST`
+entry go?" becomes real archeology.
+
+**The fix:** The `orchestrator-prompt.md` template now requires the orchestrator
+to **commit `STATE.md` / `DIGEST.md` atomically at every meaningful checkpoint**
+(dispatch, worker return, gates pass, block), not at end-of-cycle. This makes
+recovery from a crashed cycle trivial: the next cycle just reads the committed
+state. Push them directly to `main` as `chore: orchestrator cycle N — <outcome>`
+(see Trap 5 — the "never push to main" rule is carved out for bookkeeping).
+
+### Trap 3 — BLOCKED entries without a decision tree
+
+**What goes wrong:** A worker reports an issue, the orchestrator dumps a
+paragraph to `BLOCKED.md`, the cycle ends. When the human comes back —
+potentially days later — they have to re-derive: what specifically failed,
+what was already tried, what are the realistic options, what does each cost?
+Context decay turns a 10-minute decision into an afternoon.
+
+**The fix:** The `BLOCKED.md` template now requires every entry to carry four
+parts: **symptom** (exact failure), **what was tried** (one attempted fix and
+why it didn't work), **options forward** (2–3 paths with cost / risk /
+reversibility), and **recommended path** (the orchestrator's pick + reasoning).
+If the orchestrator can't fill all four, the entry should say so explicitly —
+that itself is information.
+
+### Trap 4 — Headless MCP tool surprises
+
+**What goes wrong:** Interactive Claude sessions auto-resolve a wide range of
+MCP tools (Slack, Linear, Notion, etc.). `claude -p` in headless / `launchd` /
+remote-routine contexts often ships with a narrower default toolset; deferred
+MCP tools need an explicit `ToolSearch` round-trip to load. A Slack
+notification step that "works in dev" silently no-ops in production.
+
+**The fix:** If notifications matter, test them from a *non-interactive* Claude
+session (`claude -p "use the Slack MCP to send a test message"`) before
+kickoff. The `notify-slack.md` template now flags this. If the headless path
+doesn't load the tool, either add an explicit `ToolSearch` step to the
+orchestrator-prompt or treat `DIGEST.md` as the only reliable heartbeat and
+drop the notification.
+
+### Trap 5 — "Never push to main" is too broad
+
+**What goes wrong:** A blanket "never push to main" rule is correct for
+milestone code (which flows through PR + squash merge) but wrong for
+orchestrator bookkeeping. `STATE.md` and `DIGEST.md` updates fire every cycle;
+routing them through PRs is bureaucratic theater, and not pushing them means
+cross-machine continuity breaks.
+
+**The fix:** The `orchestrator-prompt.md` template now carves out an exception:
+> Never push *code* to `main`. `STATE.md`, `DIGEST.md`, and `BLOCKED.md` updates
+> may be pushed directly to `main` as `chore: orchestrator cycle N — <outcome>`.
+
+---
 
 ## Completion
 
