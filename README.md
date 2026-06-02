@@ -11,7 +11,20 @@ In **Claude Code**:
 /plugin install reidworks-core@reidworks-skills
 ```
 
-In **Cowork**: open the plugin marketplace, add this repo by URL, and install **reidworks-core**.
+In **Cowork**:
+
+1. Open the **Customize** menu (gear/avatar area) and click the **Plugins** tab.
+2. Under **Personal plugins**, click the **+** button and choose **Add marketplace**.
+3. Pick **Add from a repository**.
+4. Paste the repo path:
+   ```
+   reidworks-io/reidworks-skills
+   ```
+   (or the full URL `https://github.com/reidworks-io/reidworks-skills` — both work).
+5. Cowork syncs the marketplace. You'll see **reidworks-core** listed; click **Install**, then **Authorise** when it asks about permissions.
+6. The skills below now load automatically — trigger them by typing `/` in any conversation, or just describe a matching task and Claude will pick them up on its own.
+
+> Anthropic's docs for this flow: [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). Plugins you add yourself are saved to your machine, not to the org — every teammate runs these steps once.
 
 After installing, the skills below load automatically — Claude triggers them on its own when a task matches their description. You don't need to remember command names.
 
