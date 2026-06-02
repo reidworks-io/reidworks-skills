@@ -1,5 +1,7 @@
 # Reidworks Skills
 
+### → Browse the catalog: **[reidworks-io.github.io/reidworks-skills](https://reidworks-io.github.io/reidworks-skills/)**
+
 Shared, reusable skills for the whole team. One Git repo, structured as a Claude **plugin marketplace** — so the same skills work in both **Cowork** (desktop app) and **Claude Code** (CLI), and installing is one command.
 
 ## Install (everyone does this once)
