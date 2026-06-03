@@ -96,11 +96,48 @@ jobs:
           CATALOG="https://reidworks-io.github.io/reidworks-skills/"
           RELEASE="https://github.com/${GITHUB_REPOSITORY}/releases/tag/latest"
 
+          # Extract the frontmatter `description` from a SKILL.md.
+          # Handles plain inline values, `>`/`|` block scalars (folded or literal),
+          # and the optional `-`/`+` chomping indicators. Trims, collapses
+          # whitespace, and truncates to 260 chars with an ellipsis.
+          extract_desc() {
+            awk '
+              /^---$/ { boundary++; if (boundary == 2) exit; next }
+              boundary == 1 {
+                if (in_desc) {
+                  if ($0 ~ /^[^ \t]/) { in_desc = 0; next }
+                  sub(/^[ \t]+/, "")
+                  desc = (desc == "" ? $0 : desc " " $0)
+                  next
+                }
+                if (/^description:/) {
+                  sub(/^description:[ \t]*/, "")
+                  if ($0 == "|" || $0 == ">" || $0 == "|-" || $0 == ">-" || $0 == "|+" || $0 == ">+" || $0 == "") {
+                    in_desc = 1
+                  } else {
+                    desc = $0
+                  }
+                }
+              }
+              END {
+                gsub(/[ \t]+/, " ", desc)
+                sub(/^ /, "", desc); sub(/ $/, "", desc)
+                if (length(desc) > 260) desc = substr(desc, 1, 259) "…"
+                print desc
+              }
+            ' "$1"
+          }
+
           SKILL_LINES=""
           IFS=',' read -ra SKILLS <<< "$NEW_SKILLS" || true
           for s in "${SKILLS[@]}"; do
             ZIP="https://github.com/${GITHUB_REPOSITORY}/releases/download/latest/${s}.zip"
-            SKILL_LINES="${SKILL_LINES}• *${s}* — <${ZIP}|Download ZIP>"$'\n'
+            DESC=$(extract_desc "plugins/reidworks-core/skills/${s}/SKILL.md")
+            SKILL_LINES="${SKILL_LINES}*${s}* — <${ZIP}|Download ZIP>"$'\n'
+            if [ -n "$DESC" ]; then
+              SKILL_LINES="${SKILL_LINES}_${DESC}_"$'\n'
+            fi
+            SKILL_LINES="${SKILL_LINES}"$'\n'
           done
 
           COUNT=${#SKILLS[@]}
