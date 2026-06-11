@@ -37,6 +37,17 @@
     padding:14px 16px; overflow:auto; font:13px/1.7 "SF Mono",ui-monospace,Menlo,Consolas,monospace; color:#cdd6e4;
   }
   .pre-comment{color:#6b7384}
+  .cmd{position:relative}
+  .cmd pre{margin:8px 0 0; padding-right:64px}
+  .copy{
+    position:absolute; top:16px; right:10px; z-index:1;
+    font:600 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    color:var(--muted); background:var(--chip); border:1px solid var(--line);
+    border-radius:7px; padding:6px 9px; cursor:pointer;
+    transition:color .12s, border-color .12s, background .12s;
+  }
+  .copy:hover{color:var(--text); border-color:var(--accent)}
+  .copy.copied{color:#7ee0a0; border-color:#2e7d52; background:#13251b}
   section{margin:46px 0}
   .section-h{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px}
   .section-h h2{font-size:22px; margin:0; letter-spacing:-.3px}
@@ -75,19 +86,25 @@
   <header>
     <div class="logo"><span class="dot"></span> Reidworks</div>
     <h1>Skills Library</h1>
-    <p class="tag">Open, reusable skills for Claude. Install once and they load automatically in Cowork and Claude Code — use them yourself or fork them for your own setup.</p>
+    <p class="tag">Open, reusable skills for Claude. In Claude Code, one install loads them all; in Cowork, add the ones you want as ZIPs. Use them yourself or fork them for your own setup.</p>
 
     <div class="install">
-      <h3>Install in Claude Code <span style="color:var(--muted);text-transform:none;font-weight:400">(recommended — one command)</span></h3>
-      <pre>/plugin marketplace add reidworks-io/reidworks-skills
+      <h3>Install in Claude Code <span style="color:var(--muted);text-transform:none;font-weight:400">(recommended)</span></h3>
+      <div class="cmd">
+        <button class="copy" type="button" aria-label="Copy commands">Copy</button>
+        <pre>/plugin marketplace add reidworks-io/reidworks-skills
 /plugin install reidworks-core@reidworks-skills</pre>
+      </div>
+      <p style="margin:8px 0 0; font-size:13px; color:var(--muted)">
+        One install loads every skill. Don't want one? Disable it in the <code>/plugin</code> menu after installing.
+      </p>
 
-      <h3 style="margin-top:16px">Install in Cowork (personal account)</h3>
-      <pre>1. Open <a href="https://github.com/reidworks-io/reidworks-skills/releases/tag/latest" style="color:#cdd6e4;text-decoration:underline">the latest release</a>
-2. Download the ZIP for the skill you want
-3. Cowork → Customize → Skills
-4. + → + Create skill → Upload a skill
-5. Upload the ZIP</pre>
+      <h3 style="margin-top:18px">Install in Cowork (personal account)</h3>
+      <p style="margin:0 0 8px; font-size:13px; color:var(--muted)">No bulk install here — add each skill you want individually.</p>
+      <pre>1. Download the ZIP for the skill you want from the catalog below
+2. Cowork → Customize → Skills
+3. + → + Create skill → Upload a skill
+4. Upload the ZIP</pre>
       <p style="margin:10px 0 0; font-size:13px; color:var(--muted)">
         Cowork's "Add marketplace" is org/team-only. ZIPs are auto-rebuilt on every push to <code>main</code>. Refs:
         <a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">Use skills</a> ·
@@ -149,6 +166,20 @@
       </a>
     </div>
   `).join('');
+
+  // Copy buttons for command blocks.
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pre = btn.parentElement.querySelector('pre');
+      if (!pre) return;
+      navigator.clipboard.writeText(pre.innerText.trim()).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+  });
 </script>
 </body>
 </html>
