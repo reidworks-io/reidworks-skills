@@ -67,3 +67,7 @@ Everything lives in **one plugin** (`reidworks-core`) so a single install gives 
 ## Adding a skill
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: drop a skill folder into `plugins/reidworks-core/skills/`, add a row to the catalog above, open a PR.
+
+## License
+
+[MIT](./LICENSE). Use them, fork them, adapt them.
