@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reidworks Skills</title>
+<link rel="icon" type="image/svg+xml" href="reidworks-logo.svg">
+<link rel="apple-touch-icon" href="reidworks-logo.svg">
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel-2:#1d2129; --line:#2a2f3a;
@@ -25,7 +27,12 @@
     font-size:14px; text-transform:uppercase; text-decoration:none;
   }
   .logo:hover{text-decoration:none; opacity:.85}
-  .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .mark{
+    width:22px; height:22px; flex:none;
+    background:linear-gradient(135deg, hsl(170 80% 50%), hsl(260 60% 65%));
+    -webkit-mask:url(reidworks-logo.svg) center/contain no-repeat;
+    mask:url(reidworks-logo.svg) center/contain no-repeat;
+  }
   h1{font-size:clamp(34px,6vw,52px); margin:14px 0 8px; letter-spacing:-1px}
   .tag{color:var(--muted); font-size:18px; max-width:620px; margin:0 auto}
   .install{
@@ -85,7 +92,7 @@
 <div class="wrap">
 
   <header>
-    <a class="logo" href="https://reidworks.io"><span class="dot"></span> Reidworks</a>
+    <a class="logo" href="https://reidworks.io"><span class="mark" role="img" aria-label="Reidworks logo"></span> Reidworks</a>
     <h1>Skills Library</h1>
     <p class="tag">Open, reusable skills for Claude. In Claude Code, one install loads them all; in Cowork, add the ones you want as ZIPs. Use them yourself or fork them for your own setup.</p>
 
