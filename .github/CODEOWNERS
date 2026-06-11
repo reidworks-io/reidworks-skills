@@ -1,0 +1,13 @@
+# Code owners for reidworks-skills.
+# Listed owners are automatically requested for review on matching PRs.
+# Skills are instructions that run inside other people's Claude sessions,
+# so every change to skill content or CI must be reviewed before it ships.
+
+# Default owner for everything in the repo.
+*                 @johnmicahreid
+
+# Skill content — auto-bundled into the public release ZIPs on merge.
+/plugins/         @johnmicahreid
+
+# CI, release automation, and security config.
+/.github/         @johnmicahreid
