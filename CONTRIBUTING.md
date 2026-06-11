@@ -7,7 +7,7 @@ A skill is just a folder with a `SKILL.md` file. Anyone can add one.
 1. Create a folder under `plugins/reidworks-core/skills/` named in `kebab-case` (e.g. `meeting-notes`).
 2. Add a `SKILL.md` (template below). Put any long reference material in a `references/` subfolder so the main file stays lean.
 3. Add a row to the catalog table in the top-level `README.md`.
-4. Open a pull request. Once merged, teammates get it next time they update the marketplace.
+4. Open a pull request. Once merged, anyone gets it next time they update the marketplace.
 
 ## SKILL.md template
 
@@ -20,7 +20,7 @@ description: >
   it's what Claude reads to decide whether to trigger the skill. Include concrete
   trigger phrases people would actually say.
 metadata:
-  category: company-wide        # or: writing, eng, sales, ops...
+  category: writing             # or: eng, sales, ops...
   author: your-github-handle
 ---
 

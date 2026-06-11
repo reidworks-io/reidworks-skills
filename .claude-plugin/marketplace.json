@@ -5,14 +5,14 @@
     "email": "john@reidworks.io"
   },
   "metadata": {
-    "description": "Reidworks internal skills marketplace. Add the marketplace, install reidworks-core, and every shared skill loads into Cowork and Claude Code.",
+    "description": "Reidworks skills marketplace. Add the marketplace, install reidworks-core, and every skill loads into Cowork and Claude Code.",
     "version": "0.1.0"
   },
   "plugins": [
     {
       "name": "reidworks-core",
       "source": "./plugins/reidworks-core",
-      "description": "All Reidworks shared skills in one install: human-voice (and more as the team adds them)."
+      "description": "All Reidworks skills in one install: human-voice, long-run (and more as they're added)."
     }
   ]
 }

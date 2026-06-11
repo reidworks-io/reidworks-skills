@@ -41,23 +41,24 @@
   .section-h{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px}
   .section-h h2{font-size:22px; margin:0; letter-spacing:-.3px}
   .count{color:var(--muted); font-size:14px}
-  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; align-items:stretch}
   .card{
     background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
     padding:20px; transition:border-color .15s, transform .15s;
+    display:flex; flex-direction:column; height:100%;
   }
   .card:hover{border-color:var(--accent); transform:translateY(-2px)}
   .card h3{margin:0 0 6px; font-size:18px; display:flex; align-items:center; gap:8px}
   .card p{margin:0 0 14px; color:var(--muted); font-size:14.5px}
-  .when{font-size:13px; color:#b9c2d0; background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:14px}
+  .when{font-size:13px; color:#b9c2d0; background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:16px}
   .when b{color:var(--text); font-weight:600}
-  .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:auto}
   .chip{font-size:12px; color:#c8d0dd; background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:4px 10px}
   .dl{
-    margin-left:auto; display:inline-flex; align-items:center; gap:6px;
+    margin-top:14px; align-self:flex-start; display:inline-flex; align-items:center; gap:6px;
     font-size:12.5px; font-weight:600; color:#0f1115;
     background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    border:none; border-radius:999px; padding:6px 12px;
+    border:none; border-radius:999px; padding:7px 14px;
     text-decoration:none; transition:transform .12s, filter .12s;
   }
   .dl:hover{transform:translateY(-1px); filter:brightness(1.06); text-decoration:none}
@@ -72,9 +73,9 @@
 <div class="wrap">
 
   <header>
-    <div class="logo"><span class="dot"></span> Reidworks Internal</div>
+    <div class="logo"><span class="dot"></span> Reidworks</div>
     <h1>Skills Library</h1>
-    <p class="tag">Shared, reusable skills for the whole team. Install once — they load automatically in Cowork and Claude Code.</p>
+    <p class="tag">Open, reusable skills for Claude. Install once and they load automatically in Cowork and Claude Code — use them yourself or fork them for your own setup.</p>
 
     <div class="install">
       <h3>Install in Claude Code <span style="color:var(--muted);text-transform:none;font-weight:400">(recommended — one command)</span></h3>
@@ -104,8 +105,8 @@
   </section>
 
   <footer>
-    Add your own → see <a href="https://github.com/reidworks-io/reidworks-skills/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
-    One plugin, <code>reidworks-core</code>, bundles every shared skill.
+    Want to add or fork a skill? See <a href="https://github.com/reidworks-io/reidworks-skills/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+    One plugin, <code>reidworks-core</code>, bundles every skill in this repo.
   </footer>
 
 </div>
@@ -117,7 +118,7 @@
       name: "human-voice",
       desc: "Edits and writes external-facing prose so it doesn't read as AI-generated.",
       when: "Writing or reviewing docs, blog posts, tutorials, public READMEs, customer-facing decks, marketing copy.",
-      category: "company-wide",
+      category: "writing",
       owner: "mscwilson"
     },
     {
@@ -142,10 +143,10 @@
       <div class="meta">
         <span class="chip">${s.category}</span>
         <span class="chip">@${s.owner}</span>
-        <a class="dl" href="${ZIP_BASE}/${s.name}.zip" title="Download ${s.name}.zip for Cowork upload">
-          ${DL_ICON} Download ZIP
-        </a>
       </div>
+      <a class="dl" href="${ZIP_BASE}/${s.name}.zip" title="Download ${s.name}.zip for Cowork upload">
+        ${DL_ICON} Download ZIP
+      </a>
     </div>
   `).join('');
 </script>

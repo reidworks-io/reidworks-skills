@@ -23,6 +23,6 @@ The site is already built in `docs/`. To publish it:
 
 That's the whole setup — no framework, no build step. When you add a skill, edit the `skills` list near the bottom of `docs/index.html` (and the table in `README.md`), commit, and the site updates itself.
 
-## 3. Tell the team
+## 3. Share it
 
-Share the two install commands from the README. After installing `reidworks-core`, skills trigger automatically — nobody needs to memorize names.
+Point people at the two install commands in the README. After installing `reidworks-core`, skills trigger automatically — nobody needs to memorize names.

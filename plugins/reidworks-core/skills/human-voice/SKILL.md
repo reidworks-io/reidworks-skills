@@ -2,7 +2,7 @@
 name: human-voice
 description: Edit or write external-facing prose so it doesn't read as AI-generated. Apply to documentation, blog posts, tutorials, public READMEs, customer-facing slide decks, marketing copy, and competitive briefs — whenever the user asks to write, edit, review, or style-check such content, even if they don't mention AI. Apply when creating this kind of content from scratch. Do NOT apply to internal communications (Slack, Notion, internal PRs, meeting notes) unless the user explicitly asks for a style review. Trigger phrases include "write a blog post", "edit this doc", "review this tutorial", "write copy for", "external-facing", "customer-facing", "public README", "slide deck for customers", "competitive brief", "does this sound AI-generated", "check this for AI tells", "make this less AI", "remove the slop".
 metadata:
-  category: company-wide
+  category: writing
   author: mscwilson
 ---
 
@@ -51,7 +51,7 @@ Do not use these words and phrases. They are AI tells.
 - "at every layer" / "across the board" — vague scope claims; name the layers or drop the phrase
 - "the question is [X] vs [Y]" — false binary framing dressed as clarity; state your actual point
 
-**AI-preferred technical verbs:** Do not use wire, scaffold, spin up, hydrate, surface, enrich (outside Snowplow enrichments context), or encode to mean "write down/document." Use the plain verb: connect, add, start, populate, show, document.
+**AI-preferred technical verbs:** Do not use wire, scaffold, spin up, hydrate, surface, enrich (unless it's a precise technical term in your domain), or encode to mean "write down/document." Use the plain verb: connect, add, start, populate, show, document.
 
 ### 2. Em dash rules
 
@@ -80,7 +80,7 @@ Em dashes are one of the strongest AI tells in prose. Even when each individual 
 
 **Three-beat punchlines:** Do not use sequences of three short escalating sentences for effect. "Same model. Same question. Dramatically better response." — rewrite as one normal sentence.
 
-**Theatrical transitions:** Do not use "Now for the main event —" / "Enter Signals." / "This is where it gets interesting." The content should speak for itself.
+**Theatrical transitions:** Do not use "Now for the main event —" / "Enter the new API." / "This is where it gets interesting." The content should speak for itself.
 
 **Foreshadowing:** Do not write "More on that in a later section." Link to the section or don't mention it.
 

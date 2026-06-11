@@ -2,9 +2,9 @@
 
 ### → Browse the catalog: **[reidworks-io.github.io/reidworks-skills](https://reidworks-io.github.io/reidworks-skills/)**
 
-Shared, reusable skills for the whole team. One Git repo, structured as a Claude **plugin marketplace** — so the same skills work in both **Cowork** (desktop app) and **Claude Code** (CLI), and installing is one command.
+Open, reusable skills for Claude. One Git repo, structured as a Claude **plugin marketplace**, so the same skills work in both **Cowork** (desktop app) and **Claude Code** (CLI), and installing is one command. Use them as-is, or fork the repo and swap in your own.
 
-## Install (everyone does this once)
+## Install (once)
 
 ### Claude Code (recommended)
 
@@ -13,7 +13,7 @@ Shared, reusable skills for the whole team. One Git repo, structured as a Claude
 /plugin install reidworks-core@reidworks-skills
 ```
 
-One command syncs every skill in this repo. Updates land on the next `/plugin marketplace update`. Works on personal accounts.
+One command syncs every skill in this repo. Updates land on the next `/plugin marketplace update`. Works on any account.
 
 ### Cowork (personal account)
 
@@ -27,11 +27,11 @@ Cowork's "Add marketplace" flow is org/team-only. On a personal account you inst
 
 Repeat per skill. ZIPs are auto-rebuilt on every push to `main`, so re-downloading picks up new versions.
 
-> Refs: [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) · [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). Skills you upload are saved locally to your machine — every teammate runs these steps once per device.
+> Refs: [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) · [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). Skills you upload are saved locally to your machine, so you run these steps once per device.
 
 ### Cowork (Team or Enterprise plan)
 
-If we ever upgrade to a Team or Enterprise workspace, the full marketplace install also works inside Cowork: **Customize → Plugins → Personal plugins → + → Add marketplace → Add from a repository →** paste `reidworks-io/reidworks-skills`. Until then, use the ZIP path above.
+On a Team or Enterprise workspace, the full marketplace install also works inside Cowork: **Customize → Plugins → Personal plugins → + → Add marketplace → Add from a repository →** paste `reidworks-io/reidworks-skills`. On a personal account, use the ZIP path above.
 
 ## Skill catalog
 
@@ -62,8 +62,8 @@ reidworks-skills/
                 └── SKILL.md
 ```
 
-We keep everything in **one plugin** (`reidworks-core`) so a single install gives the whole team every shared skill. If the library grows large or splits by department, we can break it into themed plugins later (`writing/`, `eng/`, `sales/`) — just add more entries to `marketplace.json`.
+Everything lives in **one plugin** (`reidworks-core`) so a single install gives you every skill. If the library grows large, it can split into themed plugins later (`writing/`, `eng/`, `sales/`) by adding more entries to `marketplace.json`.
 
 ## Adding a skill
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: drop your skill folder into `plugins/reidworks-core/skills/`, add a row to the catalog above, open a PR.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: drop a skill folder into `plugins/reidworks-core/skills/`, add a row to the catalog above, open a PR.
